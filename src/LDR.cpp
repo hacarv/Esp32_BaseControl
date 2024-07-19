@@ -2,6 +2,7 @@
 #include <Arduino.h>
 #include <ArduinoJson.h>
 #include "WebSocketHandler.h"
+#include "config.h"
 
 void LDR::begin(int pin) {
     _pin = pin;
@@ -18,7 +19,7 @@ void LDR::readAndNotify(unsigned long currentTime) {
     if (value != _lastValue) {
         _lastValue = value;
        JsonDocument doc;
-        doc["ldr"] = value;
+       doc[LDR_KEY] = value;
         String jsonString;
         serializeJson(doc, jsonString);
         notifyClients(jsonString);
