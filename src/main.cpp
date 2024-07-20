@@ -6,6 +6,7 @@
 #include <Adafruit_NeoPixel.h>
 #include <ESP32Servo.h>
 #include <ContinuousStepper.h>
+#include "config.h"
 #include "LDR.h"
 #include "LED.h"
 #include "ServoMotor.h"
@@ -62,11 +63,11 @@ void setup() {
   Serial.begin(115200);
   setupWiFi();
   
-  ldr.begin(A0);
+  ldr.begin(LDR_PIN);
   led.begin();
-  servoMotor.begin(2);
-  potentiometer.begin(15);
-  stepperMotor.begin(5, 18, 19);
+  servoMotor.begin(SERVO_PIN);
+  potentiometer.begin(POTENTIOMETER_PIN);
+  stepperMotor.begin(STEPPER_PIN1, STEPPER_PIN2, STEPPER_PIN3);
 
   ws.onEvent(onWebSocketEvent);
   server.addHandler(&ws);
